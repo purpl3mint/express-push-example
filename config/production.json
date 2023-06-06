@@ -1,3 +1,6 @@
 {
-  "port": 8089
+  "port": 8089,
+  "VAPID_PUBLIC_KEY": "BFQAqg7sYch0OJtY6ZUcs5_zf8x34BTFVRFnDCjfHoQFnzl8yiuooEJ0o5uyFNRW9gjTYQG77t8nsJeMmZ_TbuI",
+  "VAPID_PRIVATE_KEY": "i_UE-YTr1d_7bs97fAB6OO8vKdWqP5jVLI6BEArYCUw",
+  "PUSH_HOSTNAME": "https://eltex.loc"
 }
