@@ -1,0 +1,29 @@
+{
+  "name": "express-push-example",
+  "version": "1.0.0",
+  "description": "PWA's push notifications server on express.js + web-push",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/purpl3mint/express-push-example.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/purpl3mint/express-push-example/issues"
+  },
+  "homepage": "https://github.com/purpl3mint/express-push-example#readme",
+  "dependencies": {
+    "config": "^3.3.7",
+    "cors": "^2.8.5",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
