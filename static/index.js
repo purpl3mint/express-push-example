@@ -61,3 +61,40 @@ navigator.serviceWorker.ready
   };
 
 });
+
+document.getElementById("enable-notifications").addEventListener("click", (event) => {
+  event.preventDefault()
+  askNotificationPermission().then(alert).then(async function() {
+    await registerServiceWorker();
+  });
+})
+
+function askNotificationPermission() {
+    return new Promise((resolve, reject) => {
+      if (checkNotificationPromise()) {
+        Notification.requestPermission().then(resolve);
+
+      } else {
+        Notification.requestPermission(resolve)
+      }
+    })
+  }
+
+
+function checkNotificationPromise() {
+    try {
+      Notification.requestPermission().then();
+    } catch(e) {
+      return false;
+    }
+
+    return true;
+  }
+
+const registerServiceWorker = async () => {
+//    alert("registering service worker");
+    const swRegistration = await navigator.serviceWorker.register('service-worker.js');
+//    alert(swRegistration.active);
+    console.log(swRegistration);
+    return swRegistration;
+}
