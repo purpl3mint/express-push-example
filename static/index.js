@@ -4,6 +4,9 @@ navigator.serviceWorker.register('service-worker.js');
 navigator.serviceWorker.ready
 .then(function(registration) {
   // Use the PushManager to get the user's subscription to the push service.
+  if (!registration.pushManager){
+    throw new Error("Push notifications not supported");
+  }
   return registration.pushManager.getSubscription()
   .then(async function(subscription) {
     // If a subscription was found, return it.
@@ -36,9 +39,14 @@ navigator.serviceWorker.ready
     body: JSON.stringify({
       subscription: subscription
     }),
-  });
+  }).catch(e => console.log(e));
 
   document.getElementById('doIt').onclick = function() {
+    console.log(Notification)
+    if (Notification.permission !== 'granted'){
+      alert("Can't send push. Please, allow notifications");
+      return;
+    }
     const payload = document.getElementById('notification-payload').value;
     const delay = document.getElementById('notification-delay').value;
     const ttl = document.getElementById('notification-ttl').value;
@@ -64,9 +72,23 @@ navigator.serviceWorker.ready
 
 document.getElementById("enable-notifications").addEventListener("click", (event) => {
   event.preventDefault()
+
+  navigator.serviceWorker.ready
+  .then(registration => {
+    if (!registration.pushManager) {
+      alert("Push notifications not supported in this browser")
+      throw new Error("Push notifications not supported in this browser");
+    }
+  })
+  .then(() => askNotificationPermission().then(alert).then(async function() {
+    await registerServiceWorker();
+  }))
+  .catch(e => console.error(e));
+/*
   askNotificationPermission().then(alert).then(async function() {
     await registerServiceWorker();
   });
+*/
 })
 
 function askNotificationPermission() {
